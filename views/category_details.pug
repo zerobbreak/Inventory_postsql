@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title Category - #{category.name}
+    link(rel="stylesheet", href="/stylesheets/style.css")
+  body
+    header
+      h1= category.name
+      p Description: #{category.description}
+
+    h2 Items in this Category
+    if items.length
+      ul
+        each item in items
+          li
+            a(href=`/items/${item.id}`)= item.name
+            |  - Price: $#{item.price}
+            | , Stock: #{item.stock}
+    else
+      p No items in this category yet.
+
+    if user && user.role === 'admin'
+      a(href=`/categories/${category.id}/edit`) Edit Category
+      a(href=`/categories/${category.id}/delete`) Delete Category
+
+    footer
+      a(href="/categories") Back to Categories List

@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    title Supplier - #{supplier.name}
+    link(rel="stylesheet", href="/stylesheets/style.css")
+  body
+    header
+      h1= supplier.name
+      p Contact Information: #{supplier.contactInfo}
+
+    h2 Items Provided by #{supplier.name}
+    if items.length
+      ul
+        each item in items
+          li
+            a(href=`/items/${item.id}`)= item.name
+            |  - Price: $#{item.price}
+            | , Stock: #{item.stock}
+    else
+      p No items available from this supplier currently.
+
+    if user && user.role === 'admin'
+      a(href=`/suppliers/${supplier.id}/edit`) Edit Supplier
+      a(href=`/suppliers/${supplier.id}/delete`) Delete Supplier
+
+    footer
+      a(href="/suppliers") Back to Suppliers List

@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title= supplier ? "Edit Supplier" : "Create New Supplier"
+    link(rel="stylesheet", href="/stylesheets/style.css")
+  body
+    header
+      h1= supplier ? `Edit Supplier: ${supplier.name}` : "Create New Supplier"
+    form(action=supplier ? `/suppliers/${supplier.id}?_method=PUT` : "/suppliers", method="post")
+      label(for="name") Supplier Name:
+      input(type="text" name="name" value=supplier ? supplier.name : '' required)
+
+      label(for="contactInfo") Contact Information:
+      input(type="text" name="contactInfo" value=supplier ? supplier.contactInfo : '' required)
+
+      button(type="submit")= supplier ? "Update Supplier" : "Create Supplier"
+
+    footer
+      a(href="/suppliers") Back to Suppliers List

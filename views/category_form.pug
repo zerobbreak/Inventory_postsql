@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title= category ? "Edit Category" : "Create New Category"
+    link(rel="stylesheet", href="/stylesheets/style.css")
+  body
+    header
+      h1= category ? `Edit Category: ${category.name}` : "Create New Category"
+    form(action=category ? `/categories/${category.id}?_method=PUT` : "/categories", method="post")
+      label(for="name") Category Name:
+      input(type="text" name="name" value=category ? category.name : '' required)
+
+      label(for="description") Description:
+      textarea(name="description" required)= category ? category.description : ''
+
+      button(type="submit")= category ? "Update Category" : "Create Category"
+
+    footer
+      a(href="/categories") Back to Categories List

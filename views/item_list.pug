@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title Items List
+    link(rel="stylesheet", href="/stylesheets/style.css")
+  body
+    header
+      h1 Items List
+      a(href="/api/items/new", class="button") Add New Item
+
+    main
+      if items.length
+        table
+          thead
+            tr
+              th Name
+              th Description
+              th Price
+              th Stock
+              th Actions
+          tbody
+            each item in items
+              tr
+                td= item.name
+                td= item.description
+                td $#{item.price}
+                td= item.stock
+                td
+                  a(href=`/api/items/${item.id}`) View
+                  a(href=`/api/items/${item.id}/edit`) Edit
+                  a(href=`/api/items/${item.id}/delete`, class="delete-link") Delete
+      else
+        p No items found.
+
+    footer
+      a(href="/") Back to Home

@@ -1,0 +1,57 @@
+doctype html
+html
+  head
+    title= item ? 'Update Item' : 'Create New Item'
+    link(rel="stylesheet", href="/stylesheets/style.css")
+  body
+    header
+      h1= item ? 'Update Item' : 'Create New Item'
+    
+    main
+      form(action=item ? `/api/items/${item.id}` : `/api/items`, method=item ? "PUT" : "POST") // For update use PUT, for create use POST
+        //- Name
+        div
+          label(for="name") Name
+          input(type="text", name="name", id="name", required, value=item ? item.name : "")
+
+        //- Description
+        div
+          label(for="description") Description
+          textarea(name="description", id="description", required)= item ? item.description : ""
+
+        //- Price
+        div
+          label(for="price") Price ($)
+          input(type="number", step="0.01", name="price", id="price", required, value=item ? item.price : "")
+
+        //- Stock
+        div
+          label(for="stock") Stock
+          input(type="number", name="stock", id="stock", required, value=item ? item.stock : "")
+
+        //- Category ID - Dropdown
+        div
+          label(for="categoryid") Category
+          select(name="categoryid", id="categoryid", required)
+            option(value="") Select a category
+            each category in categories
+              option(value=category.id, selected=item && item.categoryid === category.id)= category.name
+
+        //- Supplier ID - Dropdown
+        div
+          label(for="supplierid") Supplier
+          select(name="supplierid", id="supplierid", required)
+            option(value="") Select a supplier
+            each supplier in suppliers
+              option(value=supplier.id, selected=item && item.supplierid === supplier.id)= supplier.name
+
+        //- Submit Button
+        div
+          button(type="submit")= item ? "Update Item" : "Create Item"
+
+      if item
+        form(action=`/items/${item.id}/delete`, method="POST")
+          button(type="submit", class="delete-button") Delete Item
+
+    footer
+      a(href="/items") Back to Items List

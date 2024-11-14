@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title Inventory Management System
+    link(rel="stylesheet", href="/stylesheets/style.css")
+  body
+    header
+      h1 Inventory Management System
+
+    main
+      p Welcome to the Inventory Management System. Select a section to view, create, or manage resources.
+
+      div.navigation
+        a(href="/api/items") Items
+        a(href="/api/categories") Categories
+        a(href="/api/suppliers") Suppliers
+
+    footer
+      p &copy; #{new Date().getFullYear()} Inventory Management. All Rights Reserved.
